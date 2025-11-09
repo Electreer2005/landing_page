@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Landing Moderna — Full Glass</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+
+  <style>
+    /* ===== Variables ===== */
+    :root {
+      --color-azul: #2e82ff;
+      --color-rosa: #ff0591;
+      --texto-claro: #ffffff;
+      --texto-oscuro: #0e0e0e;
+      --glass-light: rgba(255, 255, 255, 0.18);
+      --glass-dark: rgba(30, 30, 30, 0.4);
+    }
+
+    /* ===== Base ===== */
+    * { box-sizing: border-box; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      color: var(--texto-oscuro);
+      background: linear-gradient(120deg, var(--color-azul), var(--color-rosa), var(--color-azul));
+      background-size: 300% 300%;
+      animation: moveGradient 12s ease infinite;
+      transition: background 1s, color 0.4s;
+      overflow-x: hidden;
+    }
+
+    @keyframes moveGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1, h2, h3 { color: #fff; margin-bottom: 1rem; }
+    p { color: #f2f2f2; }
+
+    /* ===== Glassmorphism ===== */
+    .glass-bg {
+      backdrop-filter: blur(16px) saturate(150%);
+      -webkit-backdrop-filter: blur(16px) saturate(150%);
+      background-color: var(--glass-light);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      transition: background-color 0.5s, border-color 0.5s;
+    }
+
+    /* ===== Header ===== */
+    header.site-header {
+      position: sticky;
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      z-index: 20;
+    }
+    .brand {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: white;
+      text-decoration: none;
+    }
+    nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.3s;
+    }
+    nav a:hover { opacity: 0.7; }
+
+    /* ===== Botón hamburguesa ===== */
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      font-size: 1.8rem;
+      color: white;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 70%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: rgba(15, 15, 15, 0.8);
+        backdrop-filter: blur(16px);
+        transition: right 0.4s ease;
+      }
+      nav.open { right: 0; }
+      .menu-toggle { display: block; }
+    }
+
+    /* ===== Botones ===== */
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+    .btn-primary { background-color: var(--color-azul); color: #fff; }
+    .btn-outline { border: 2px solid var(--color-azul); color: var(--color-azul); background: transparent; }
+    .btn:hover { opacity: 0.85; transform: translateY(-2px); }
+
+    /* ===== Secciones ===== */
+    main section {
+      margin: 4rem auto;
+      max-width: 1100px;
+      text-align: center;
+    }
+
+    .hero h1 span { color: var(--color-rosa); }
+    .features-grid, .services-grid, .testimonials-grid, .gallery-grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    /* ===== Galería ===== */
+    .gallery-grid img {
+      width: 100%;
+      border-radius: 16px;
+      transition: transform 0.4s, box-shadow 0.4s;
+    }
+    .gallery-grid img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    /* ===== Parallax ===== */
+    .parallax {
+      background-image: url("https://images.unsplash.com/photo-1522204502759-5e8e9f74b1c5?auto=format&fit=crop&w=1600&q=80");
+      height: 60vh;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      border-radius: 16px;
+      margin: 3rem auto;
+      max-width: 1200px;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #fff;
+    }
+
+    /* ===== Botón flotante ===== */
+    .theme-fab {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: linear-gradient(135deg, var(--color-azul), var(--color-rosa));
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease, opacity 0.3s;
+      z-index: 100;
+    }
+    .theme-fab:hover { transform: scale(1.1); opacity: 0.9; }
+
+    /* ===== Animaciones scroll ===== */
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+    [data-animate].visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== Modo oscuro ===== */
+    body.dark {
+      color: var(--texto-claro);
+      background: linear-gradient(120deg, #001f3f, #550033, #001f3f);
+    }
+    body.dark .glass-bg {
+      background-color: var(--glass-dark);
+      border-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 40px rgba(0, 0, 0, 0.4);
+    }
+    body.dark .btn-primary { background-color: var(--color-rosa); }
+    body.dark .btn-outline { border-color: var(--color-rosa); color: var(--color-rosa); }
+  </style>
+</head>
+
+<body>
+  <header class="site-header glass-bg">
+    <a class="brand" href="#">MiMarca</a>
+    <button class="menu-toggle" id="menu-toggle"><i class="ri-menu-line"></i></button>
+    <nav id="nav">
+      <a href="#features">Características</a>
+      <a href="#services">Servicios</a>
+      <a href="#gallery">Galería</a>
+      <a href="#testimonials">Opiniones</a>
+      <a href="#contact">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero glass-bg" data-animate>
+      <h1>Impulsá tu marca con un <span>diseño brillante</span></h1>
+      <p>Experiencias fluidas, modernas y adaptables. El futuro del diseño web está acá.</p>
+      <a href="#cta" class="btn btn-primary">Comenzar</a>
+      <a href="#features" class="btn btn-outline">Ver más</a>
+    </section>
+
+    <div class="parallax" data-animate></div>
+
+    <section id="features" class="glass-bg" data-animate>
+      <h2>Características principales</h2>
+      <div class="features-grid">
+        <div><i class="ri-flashlight-line" style="font-size:2rem;"></i><p>Rendimiento ultra rápido</p></div>
+        <div><i class="ri-shield-check-line" style="font-size:2rem;"></i><p>Seguridad avanzada</p></div>
+        <div><i class="ri-brush-line" style="font-size:2rem;"></i><p>Diseño glassmorphism</p></div>
+        <div><i class="ri-smartphone-line" style="font-size:2rem;"></i><p>100% adaptable</p></div>
+      </div>
+    </section>
+
+    <section id="services" class="glass-bg" data-animate>
+      <h2>Servicios</h2>
+      <div class="features-grid">
+        <div><i class="ri-window-line" style="font-size:2rem;"></i><p>Desarrollo Web</p></div>
+        <div><i class="ri-store-2-line" style="font-size:2rem;"></i><p>Tiendas Online</p></div>
+        <div><i class="ri-megaphone-line" style="font-size:2rem;"></i><p>Marketing Digital</p></div>
+        <div><i class="ri-lightbulb-line" style="font-size:2rem;"></i><p>Consultoría Creativa</p></div>
+      </div>
+    </section>
+
+    <section id="gallery" class="glass-bg" data-animate>
+      <h2>Galería</h2>
+      <div class="gallery-grid">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80">
+        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=600&q=80">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80">
+        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=600&q=80">
+      </div>
+    </section>
+
+    <section id="testimonials" class="glass-bg" data-animate>
+      <h2>Opiniones</h2>
+      <div class="features-grid">
+        <div><p><i>"Excelente servicio, rápido y confiable."</i></p><p>— Carla R.</p></div>
+        <div><p><i>"El diseño cambió completamente mi presencia online."</i></p><p>— Juan P.</p></div>
+        <div><p><i>"Creatividad, velocidad y atención personalizada."</i></p><p>— Sofía M.</p></div>
+      </div>
+    </section>
+
+    <section id="contact" class="glass-bg" data-animate>
+      <h2>¿Listo para despegar?</h2>
+      <form>
+        <input type="email" placeholder="Tu email" required style="padding:0.8rem;border-radius:8px;border:none;width:250px;">
+        <button class="btn btn-primary" type="submit">Comenzar</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="glass-bg" data-animate>
+    <p>&copy; <span id="year"></span> MiMarca — Todos los derechos reservados.</p>
+    <div>
+      <a href="#"><i class="ri-twitter-fill"></i></a>
+      <a href="#"><i class="ri-instagram-line"></i></a>
+      <a href="#"><i class="ri-github-fill"></i></a>
+    </div>
+  </footer>
+
+  <button class="theme-fab" id="theme-toggle"><i class="ri-moon-line"></i></button>
+
+  <script>
+    // Año actual
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Animaciones scroll
+    const items = document.querySelectorAll("[data-animate]");
+    const reveal = () => {
+      const trigger = window.innerHeight * 0.85;
+      items.forEach(el => {
+        if (el.getBoundingClientRect().top < trigger) el.classList.add("visible");
+      });
+    };
+    window.addEventListener("scroll", reveal);
+    window.addEventListener("load", reveal);
+
+    // Tema claro/oscuro
+    const body = document.body;
+    const toggleBtn = document.getElementById("theme-toggle");
+    const icon = toggleBtn.querySelector("i");
+    const saved = localStorage.getItem("theme");
+    if (saved === "dark") { body.classList.add("dark"); icon.className = "ri-sun-line"; }
+    toggleBtn.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      const dark = body.classList.contains("dark");
+      icon.className = dark ? "ri-sun-line" : "ri-moon-line";
+      localStorage.setItem("theme", dark ? "dark" : "light");
+    });
+
+    // Menú hamburguesa
+    const nav = document.getElementById("nav");
+    const menuToggle = document.getElementById("menu-toggle");
+    menuToggle.addEventListener("click", () => {
+      nav.classList.toggle("open");
+      const icon = menuToggle.querySelector("i");
+      icon.className = nav.classList.contains("open") ? "ri-close-line" : "ri-menu-line";
+    });
+    nav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+      nav.classList.remove("open");
+      menuToggle.querySelector("i").className = "ri-menu-line";
+    }));
+  </script>
+</body>
+</html>
